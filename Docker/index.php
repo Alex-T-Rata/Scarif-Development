@@ -23,6 +23,7 @@ $itemsPerPage = 10;
 
 
 
+
 try {
     // Attempt PDO connection configuration
     $pdo = new PDO($dsn, $user, $pass, $options);
@@ -35,6 +36,10 @@ try {
 } catch (\PDOException $e) {
     $errorMsg = $e->getMessage();
 }
+
+$deviceStatesStmt = $pdo->query("SELECT DISTINCT device_id FROM sensor_readings");
+$availableDevices = $deviceStatesStmt->fetchAll(PDO:FETCH_COLUMN);
+print_r($availableDevices);
 ?>
 <!DOCTYPE html>
 <html lang="en">
